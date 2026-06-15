@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FaFutbol, FaArrowRight } from 'react-icons/fa';
+import { FaFutbol } from 'react-icons/fa';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -21,7 +21,7 @@ const Login = () => {
       if (res.data.user.role === 'ADMIN') navigate('/admin');
       else navigate('/');
     } catch (err) {
-      setError(err.response?.data?.message || 'Email atau password salah nih.');
+      setError(err.response?.data?.message || 'Email atau password salah.');
     } finally {
       setIsLoading(false);
     }
@@ -30,16 +30,16 @@ const Login = () => {
   return (
     <div className="auth-split">
       <div className="auth-left">
-        <div className="auth-form-wrapper animate-slide-up">
-          <Link to="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '40px', fontSize: '1.2rem', fontWeight: '700' }}>
-            <FaFutbol className="text-gradient" /> Arena<span className="text-gradient">Pro</span>
+        <div className="auth-form-wrapper">
+          <Link to="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '48px', fontSize: '1.1rem', fontWeight: '700', color: 'var(--text-primary)' }}>
+            <FaFutbol style={{ color: 'var(--accent)' }} /> Arena Pro
           </Link>
           
-          <h1 style={{ fontSize: '2.5rem', marginBottom: '8px' }}>Selamat datang lagi!</h1>
-          <p style={{ color: 'var(--text-tertiary)', marginBottom: '32px' }}>Masuk ke akunmu buat cek jadwal atau booking lapangan baru.</p>
+          <h1 style={{ fontSize: '1.8rem', fontWeight: '700', marginBottom: '8px' }}>Masuk ke akun</h1>
+          <p style={{ color: 'var(--text-tertiary)', marginBottom: '32px', fontSize: '0.95rem' }}>Masukkan email dan password untuk melanjutkan.</p>
           
           {error && (
-            <div style={{ background: 'rgba(244, 63, 94, 0.1)', color: 'var(--danger-color)', padding: '12px 16px', borderRadius: 'var(--radius-sm)', marginBottom: '24px', fontSize: '0.9rem', border: '1px solid rgba(244, 63, 94, 0.2)' }}>
+            <div style={{ background: 'rgba(239, 68, 68, 0.1)', color: 'var(--danger)', padding: '10px 14px', borderRadius: 'var(--radius-sm)', marginBottom: '20px', fontSize: '0.9rem', border: '1px solid rgba(239, 68, 68, 0.15)' }}>
               {error}
             </div>
           )}
@@ -47,47 +47,27 @@ const Login = () => {
           <form onSubmit={handleLogin}>
             <div className="form-group">
               <label>Email</label>
-              <input 
-                type="email" 
-                className="form-control" 
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)} 
-                required 
-                placeholder="Ketik email kamu di sini"
-              />
+              <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="Alamat email" />
             </div>
             <div className="form-group">
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <label>Password</label>
-                <a href="#" style={{ fontSize: '0.85rem', color: 'var(--text-tertiary)' }}>Lupa password?</a>
-              </div>
-              <input 
-                type="password" 
-                className="form-control" 
-                value={password} 
-                onChange={(e) => setPassword(e.target.value)} 
-                required 
-                placeholder="••••••••"
-              />
+              <label>Password</label>
+              <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="••••••••" />
             </div>
             
-            <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '16px', padding: '14px' }} disabled={isLoading}>
-              {isLoading ? 'Lagi proses...' : 'Masuk'} <FaArrowRight style={{ marginLeft: '4px' }} />
+            <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '8px', padding: '12px' }} disabled={isLoading}>
+              {isLoading ? 'Memproses...' : 'Masuk'}
             </button>
           </form>
           
-          <p style={{ textAlign: 'center', marginTop: '32px', color: 'var(--text-tertiary)', fontSize: '0.95rem' }}>
-            Belum punya akun? <Link to="/register" style={{ color: 'var(--accent-primary)', fontWeight: '600' }}>Daftar di sini</Link>
+          <p style={{ textAlign: 'center', marginTop: '24px', color: 'var(--text-tertiary)', fontSize: '0.9rem' }}>
+            Belum punya akun? <Link to="/register">Daftar</Link>
           </p>
         </div>
       </div>
       
       <div className="auth-right">
-        <div style={{ maxWidth: '400px', zIndex: 2 }} className="animate-slide-up stagger-2">
-          <div style={{ width: '80px', height: '80px', borderRadius: '20px', background: 'var(--gradient-btn)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 32px auto', boxShadow: '0 0 40px rgba(0, 210, 255, 0.3)' }}>
-            <FaFutbol size={40} color="#fff" />
-          </div>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>Selamat Datang di Arena Pro.</h2>
+        <div style={{ maxWidth: '360px' }}>
+          <h2 style={{ fontSize: '2rem', fontWeight: '700', marginBottom: '12px' }}>Selamat Datang di Arena Pro.</h2>
         </div>
       </div>
     </div>
