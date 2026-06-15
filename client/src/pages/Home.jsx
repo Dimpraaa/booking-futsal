@@ -76,7 +76,7 @@ const Home = () => {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '32px' }}>
           {rooms.map((room, idx) => (
             <div key={room.id} className="glass-card" style={{ padding: '0', animationDelay: `${idx * 0.1}s` }}>
-              <div style={{ height: '200px', background: 'linear-gradient(to bottom, rgba(16, 20, 31, 0), var(--bg-surface)), url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop")', backgroundSize: 'cover', backgroundPosition: 'center', position: 'relative' }}>
+              <div style={{ height: '200px', background: 'linear-gradient(to bottom, rgba(16, 20, 31, 0), var(--bg-surface)), url("https://images.unsplash.com/photo-1521217078329-f8fc1becab68?q=80&w=1470&auto=format&fit=crop")', backgroundSize: 'cover', backgroundPosition: 'center', position: 'relative' }}>
                 <div style={{ position: 'absolute', top: '20px', right: '20px', background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', padding: '6px 12px', borderRadius: 'var(--radius-full)', fontSize: '0.85rem', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '6px', color: '#fff' }}>
                   <FaCheckCircle color="var(--success-color)" /> Tersedia
                 </div>
