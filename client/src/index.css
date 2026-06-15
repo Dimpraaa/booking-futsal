@@ -266,7 +266,7 @@ a:hover {
 
 .auth-right {
   flex: 1;
-  background: linear-gradient(135deg, rgba(15, 20, 35, 0.8) 0%, rgba(7, 9, 15, 0.95) 100%), url("https://images.unsplash.com/photo-1671706474508-2d1e05be761d?q=80&w=1458&auto=format&fit=crop");
+  background: linear-gradient(135deg, rgba(15, 20, 35, 0.85) 0%, rgba(7, 9, 15, 0.95) 100%), url("https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=1458&auto=format&fit=crop");
   background-size: cover;
   background-position: center;
   display: flex;
