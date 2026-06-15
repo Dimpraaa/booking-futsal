@@ -72,9 +72,9 @@ const Register = () => {
           <div style={{ width: '80px', height: '80px', borderRadius: '20px', background: 'var(--gradient-btn)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 32px auto', boxShadow: '0 0 40px rgba(0, 210, 255, 0.3)' }}>
             <FaFutbol size={40} color="#fff" />
           </div>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>Main Tanpa Ribet.</h2>
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>Selamat Datang di Arena Pro.</h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: '1.8' }}>
-            Tinggal klik, lapangan langsung di-booking. Gak perlu lagi repot nunggu balasan chat admin lama cuma buat nanya jadwal kosong.
+            Arena futsal terbaik dengan fasilitas standar internasional. Kami menyediakan lapangan rumput sintetis premium, ruang ganti ber-AC, tribun penonton, dan area parkir luas.
           </p>
         </div>
       </div>

@@ -87,9 +87,9 @@ const Login = () => {
           <div style={{ width: '80px', height: '80px', borderRadius: '20px', background: 'var(--gradient-btn)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 32px auto', boxShadow: '0 0 40px rgba(0, 210, 255, 0.3)' }}>
             <FaFutbol size={40} color="#fff" />
           </div>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>Fokus Mainnya, Biar Kami Urus Bookingnya.</h2>
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>Fasilitas Kelas Kompetisi.</h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: '1.8' }}>
-            Cek jadwal kosong secara real-time dan langsung booking tanpa perlu ngantri. Bikin jadwal futsal bareng teman jadi makin gampang!
+            Arena Pro adalah pilihan utama untuk turnamen maupun latihan rutin. Didesain khusus untuk memberikan kenyamanan dan pengalaman bertanding maksimal bagi setiap tim.
           </p>
         </div>
       </div>
