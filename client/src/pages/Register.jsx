@@ -56,13 +56,6 @@ const Register = () => {
               <label>Password</label>
               <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="Create a strong password" />
             </div>
-            <div className="form-group">
-              <label>Role (Demo Purpose)</label>
-              <select className="form-control" value={role} onChange={(e) => setRole(e.target.value)} style={{ appearance: 'none' }}>
-                <option value="USER" style={{ background: 'var(--bg-surface)' }}>Customer (User)</option>
-                <option value="ADMIN" style={{ background: 'var(--bg-surface)' }}>Manager (Admin)</option>
-              </select>
-            </div>
             
             <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '10px', padding: '14px' }} disabled={isLoading}>
               {isLoading ? 'Creating account...' : 'Sign Up'} <FaArrowRight style={{ marginLeft: '4px' }} />
