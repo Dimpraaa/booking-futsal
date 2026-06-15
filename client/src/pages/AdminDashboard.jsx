@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { FaPlus, FaTrash, FaCheck, FaTimes, FaInbox } from 'react-icons/fa';
 
 const AdminDashboard = () => {
   const [bookings, setBookings] = useState([]);
   const [rooms, setRooms] = useState([]);
   const [newRoom, setNewRoom] = useState({ name: '', capacity: 10, price_per_hour: 0 });
   const [error, setError] = useState('');
+  const [activeTab, setActiveTab] = useState('bookings');
   const navigate = useNavigate();
 
   const token = localStorage.getItem('token');
@@ -49,9 +51,10 @@ const AdminDashboard = () => {
         headers: { Authorization: `Bearer ${token}` }
       });
       setNewRoom({ name: '', capacity: 10, price_per_hour: 0 });
-      fetchRooms(); // Refresh list
+      fetchRooms();
+      alert('Arena added successfully!');
     } catch (err) {
-      setError('Gagal membuat lapangan');
+      setError('Failed to create arena');
     }
   };
 
@@ -60,118 +63,166 @@ const AdminDashboard = () => {
       await axios.put(`http://localhost:5000/api/bookings/${id}/status`, { status }, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      fetchBookings(); // Refresh list
+      fetchBookings();
     } catch (err) {
-      alert('Gagal merubah status');
+      alert('Failed to update status');
     }
   };
 
   const deleteRoom = async (id) => {
-    if(window.confirm('Hapus lapangan ini?')) {
+    if(window.confirm('Are you sure you want to delete this arena?')) {
       try {
         await axios.delete(`http://localhost:5000/api/rooms/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         fetchRooms();
       } catch (err) {
-        alert('Gagal menghapus');
+        alert('Failed to delete');
       }
     }
   };
 
   return (
-    <div className="container animate-fade-in" style={{ padding: '40px 20px' }}>
-      <h1 style={{ marginBottom: '30px' }}>Admin Dashboard</h1>
-
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '30px' }}>
-        {/* Left Column: Manage Rooms */}
-        <div>
-          <div className="card" style={{ marginBottom: '30px' }}>
-            <h3>Tambah Lapangan Baru</h3>
-            <hr style={{ borderColor: 'var(--border-color)', margin: '15px 0' }} />
-            {error && <p style={{ color: 'var(--danger)' }}>{error}</p>}
-            <form onSubmit={handleCreateRoom}>
-              <div className="form-group">
-                <label>Nama Lapangan</label>
-                <input type="text" className="form-control" value={newRoom.name} onChange={e => setNewRoom({...newRoom, name: e.target.value})} required />
-              </div>
-              <div className="form-group">
-                <label>Kapasitas</label>
-                <input type="number" className="form-control" value={newRoom.capacity} onChange={e => setNewRoom({...newRoom, capacity: e.target.value})} required />
-              </div>
-              <div className="form-group">
-                <label>Harga per Jam (Rp)</label>
-                <input type="number" className="form-control" value={newRoom.price_per_hour} onChange={e => setNewRoom({...newRoom, price_per_hour: e.target.value})} required />
-              </div>
-              <button type="submit" className="btn">Simpan Lapangan</button>
-            </form>
-          </div>
-
-          <div className="card">
-            <h3>Daftar Lapangan</h3>
-            <ul style={{ listStyle: 'none', padding: 0, marginTop: '15px' }}>
-              {rooms.map(r => (
-                <li key={r.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid var(--border-color)' }}>
-                  <span>{r.name} - Rp{r.price_per_hour}/jam</span>
-                  <button className="btn-outline" style={{ border: 'none', color: 'var(--danger)', cursor: 'pointer' }} onClick={() => deleteRoom(r.id)}>Hapus</button>
-                </li>
-              ))}
-            </ul>
-          </div>
+    <div className="dashboard-layout animate-fade-in">
+      {/* Sidebar Navigation */}
+      <aside className="sidebar">
+        <div style={{ paddingBottom: '32px', borderBottom: '1px solid var(--border-light)' }}>
+          <p style={{ fontSize: '0.85rem', color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>Admin Workspace</p>
+          <h2 style={{ fontSize: '1.5rem' }}>Management</h2>
         </div>
+        
+        <nav style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '24px' }}>
+          <button 
+            onClick={() => setActiveTab('bookings')}
+            style={{ textAlign: 'left', padding: '12px 16px', background: activeTab === 'bookings' ? 'var(--bg-glass-hover)' : 'transparent', border: '1px solid', borderColor: activeTab === 'bookings' ? 'var(--border-light)' : 'transparent', borderRadius: 'var(--radius-md)', color: activeTab === 'bookings' ? 'var(--text-primary)' : 'var(--text-secondary)', cursor: 'pointer', transition: 'all 0.2s', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500' }}
+          >
+            <FaInbox /> Incoming Bookings
+          </button>
+          <button 
+            onClick={() => setActiveTab('rooms')}
+            style={{ textAlign: 'left', padding: '12px 16px', background: activeTab === 'rooms' ? 'var(--bg-glass-hover)' : 'transparent', border: '1px solid', borderColor: activeTab === 'rooms' ? 'var(--border-light)' : 'transparent', borderRadius: 'var(--radius-md)', color: activeTab === 'rooms' ? 'var(--text-primary)' : 'var(--text-secondary)', cursor: 'pointer', transition: 'all 0.2s', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500' }}
+          >
+            <FaPlus /> Manage Arenas
+          </button>
+        </nav>
+      </aside>
 
-        {/* Right Column: Manage Bookings */}
-        <div className="card">
-          <h3>Daftar Pesanan Masuk</h3>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '20px' }}>Validasi pembayaran dan setujui jadwal di sini.</p>
-          
-          <div className="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>User</th>
-                  <th>Lapangan</th>
-                  <th>Waktu</th>
-                  <th>Total Tagihan</th>
-                  <th>Status</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                {bookings.map(b => (
-                  <tr key={b.id}>
-                    <td>{b.user?.name}</td>
-                    <td>{b.room?.name}</td>
-                    <td>
-                      {new Date(b.start_time).toLocaleString('id-ID')} <br/> 
-                      s/d <br/>
-                      {new Date(b.end_time).toLocaleString('id-ID')}
-                    </td>
-                    <td><strong>Rp {b.total_price}</strong></td>
-                    <td>
-                      <span className={`badge badge-${b.status.toLowerCase()}`}>
-                        {b.status}
-                      </span>
-                    </td>
-                    <td>
-                      {b.status === 'PENDING' && (
-                        <div style={{ display: 'flex', gap: '5px' }}>
-                          <button onClick={() => updateBookingStatus(b.id, 'APPROVED')} className="btn" style={{ padding: '5px 10px', fontSize: '0.8rem' }}>Setujui</button>
-                          <button onClick={() => updateBookingStatus(b.id, 'CANCELLED')} className="btn btn-danger" style={{ padding: '5px 10px', fontSize: '0.8rem' }}>Tolak</button>
-                        </div>
-                      )}
-                      {b.status === 'APPROVED' && (
-                        <button onClick={() => updateBookingStatus(b.id, 'COMPLETED')} className="btn btn-outline" style={{ padding: '5px 10px', fontSize: '0.8rem' }}>Selesai</button>
-                      )}
-                    </td>
+      {/* Main Content Area */}
+      <main className="main-content">
+        {activeTab === 'bookings' && (
+          <div className="animate-slide-up">
+            <div style={{ marginBottom: '32px' }}>
+              <h1 style={{ fontSize: '2rem', marginBottom: '8px' }}>Bookings Overview</h1>
+              <p style={{ color: 'var(--text-tertiary)' }}>Monitor and validate customer booking requests.</p>
+            </div>
+            
+            <div style={{ overflowX: 'auto', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-light)', background: 'var(--bg-surface)' }}>
+              <table className="data-grid">
+                <thead>
+                  <tr>
+                    <th>Customer</th>
+                    <th>Arena</th>
+                    <th>Schedule</th>
+                    <th>Total Revenue</th>
+                    <th>Status</th>
+                    <th>Action</th>
                   </tr>
-                ))}
-                {bookings.length === 0 && <tr><td colSpan="6" style={{ textAlign: 'center' }}>Belum ada pesanan.</td></tr>}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {bookings.map(b => (
+                    <tr key={b.id}>
+                      <td style={{ fontWeight: '500' }}>{b.user?.name}</td>
+                      <td>{b.room?.name}</td>
+                      <td style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+                        {new Date(b.start_time).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' })}<br/>
+                        <span style={{ color: 'var(--text-tertiary)' }}>to</span><br/>
+                        {new Date(b.end_time).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' })}
+                      </td>
+                      <td style={{ fontWeight: '600', color: 'var(--accent-primary)' }}>Rp {b.total_price.toLocaleString('id-ID')}</td>
+                      <td>
+                        <span className={`status-dot status-${b.status.toLowerCase()}`}>
+                          {b.status}
+                        </span>
+                      </td>
+                      <td>
+                        {b.status === 'PENDING' && (
+                          <div style={{ display: 'flex', gap: '8px' }}>
+                            <button onClick={() => updateBookingStatus(b.id, 'APPROVED')} className="btn" style={{ padding: '8px 12px', background: 'rgba(16, 185, 129, 0.1)', color: 'var(--success-color)', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
+                              <FaCheck />
+                            </button>
+                            <button onClick={() => updateBookingStatus(b.id, 'CANCELLED')} className="btn" style={{ padding: '8px 12px', background: 'rgba(244, 63, 94, 0.1)', color: 'var(--danger-color)', border: '1px solid rgba(244, 63, 94, 0.2)' }}>
+                              <FaTimes />
+                            </button>
+                          </div>
+                        )}
+                        {b.status === 'APPROVED' && (
+                          <button onClick={() => updateBookingStatus(b.id, 'COMPLETED')} className="btn" style={{ padding: '8px 16px', fontSize: '0.85rem' }}>Mark Completed</button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                  {bookings.length === 0 && (
+                    <tr>
+                      <td colSpan="6" style={{ textAlign: 'center', padding: '60px', color: 'var(--text-tertiary)' }}>No bookings found.</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-      </div>
+        )}
+
+        {activeTab === 'rooms' && (
+          <div className="animate-slide-up">
+            <div style={{ marginBottom: '32px' }}>
+              <h1 style={{ fontSize: '2rem', marginBottom: '8px' }}>Arena Management</h1>
+              <p style={{ color: 'var(--text-tertiary)' }}>Add new facilities or remove existing ones.</p>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px' }}>
+              {/* Form Add Room */}
+              <div className="glass-card">
+                <h3 style={{ marginBottom: '24px', fontSize: '1.4rem' }}>Add New Arena</h3>
+                {error && <p style={{ color: 'var(--danger-color)', marginBottom: '16px' }}>{error}</p>}
+                <form onSubmit={handleCreateRoom}>
+                  <div className="form-group">
+                    <label>Arena Name</label>
+                    <input type="text" className="form-control" value={newRoom.name} onChange={e => setNewRoom({...newRoom, name: e.target.value})} required placeholder="e.g., VIP Court A" />
+                  </div>
+                  <div className="form-group">
+                    <label>Player Capacity</label>
+                    <input type="number" className="form-control" value={newRoom.capacity} onChange={e => setNewRoom({...newRoom, capacity: e.target.value})} required />
+                  </div>
+                  <div className="form-group">
+                    <label>Price per Hour (Rp)</label>
+                    <input type="number" className="form-control" value={newRoom.price_per_hour} onChange={e => setNewRoom({...newRoom, price_per_hour: e.target.value})} required placeholder="150000" />
+                  </div>
+                  <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '16px' }}><FaPlus /> Create Arena</button>
+                </form>
+              </div>
+
+              {/* List Rooms */}
+              <div>
+                <h3 style={{ marginBottom: '24px', fontSize: '1.4rem' }}>Existing Arenas</h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  {rooms.map(r => (
+                    <div key={r.id} style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-md)', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <div>
+                        <h4 style={{ fontSize: '1.1rem', marginBottom: '4px' }}>{r.name}</h4>
+                        <p style={{ color: 'var(--text-tertiary)', fontSize: '0.9rem' }}>Rp {r.price_per_hour.toLocaleString('id-ID')} / hour</p>
+                      </div>
+                      <button className="btn btn-danger" onClick={() => deleteRoom(r.id)} style={{ padding: '10px' }}>
+                        <FaTrash />
+                      </button>
+                    </div>
+                  ))}
+                  {rooms.length === 0 && <p style={{ color: 'var(--text-tertiary)' }}>No arenas registered yet.</p>}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </main>
     </div>
   );
 };
