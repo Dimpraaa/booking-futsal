@@ -21,7 +21,7 @@ const Login = () => {
       if (res.data.user.role === 'ADMIN') navigate('/admin');
       else navigate('/');
     } catch (err) {
-      setError(err.response?.data?.message || 'Authentication failed');
+      setError(err.response?.data?.message || 'Gagal masuk');
     } finally {
       setIsLoading(false);
     }
@@ -35,8 +35,8 @@ const Login = () => {
             <FaFutbol className="text-gradient" /> Arena<span className="text-gradient">Pro</span>
           </Link>
           
-          <h1 style={{ fontSize: '2.5rem', marginBottom: '8px' }}>Welcome back.</h1>
-          <p style={{ color: 'var(--text-tertiary)', marginBottom: '32px' }}>Sign in to manage your bookings and explore fields.</p>
+          <h1 style={{ fontSize: '2.5rem', marginBottom: '8px' }}>Selamat datang kembali.</h1>
+          <p style={{ color: 'var(--text-tertiary)', marginBottom: '32px' }}>Masuk untuk mengelola pesanan dan mencari lapangan.</p>
           
           {error && (
             <div style={{ background: 'rgba(244, 63, 94, 0.1)', color: 'var(--danger-color)', padding: '12px 16px', borderRadius: 'var(--radius-sm)', marginBottom: '24px', fontSize: '0.9rem', border: '1px solid rgba(244, 63, 94, 0.2)' }}>
@@ -46,20 +46,20 @@ const Login = () => {
 
           <form onSubmit={handleLogin}>
             <div className="form-group">
-              <label>Email address</label>
+              <label>Alamat Email</label>
               <input 
                 type="email" 
                 className="form-control" 
                 value={email} 
                 onChange={(e) => setEmail(e.target.value)} 
                 required 
-                placeholder="name@company.com"
+                placeholder="Masukkan alamat email"
               />
             </div>
             <div className="form-group">
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <label>Password</label>
-                <a href="#" style={{ fontSize: '0.85rem', color: 'var(--text-tertiary)' }}>Forgot password?</a>
+                <label>Kata Sandi</label>
+                <a href="#" style={{ fontSize: '0.85rem', color: 'var(--text-tertiary)' }}>Lupa kata sandi?</a>
               </div>
               <input 
                 type="password" 
@@ -72,12 +72,12 @@ const Login = () => {
             </div>
             
             <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '16px', padding: '14px' }} disabled={isLoading}>
-              {isLoading ? 'Signing in...' : 'Sign In'} <FaArrowRight style={{ marginLeft: '4px' }} />
+              {isLoading ? 'Sedang memproses...' : 'Masuk'} <FaArrowRight style={{ marginLeft: '4px' }} />
             </button>
           </form>
           
           <p style={{ textAlign: 'center', marginTop: '32px', color: 'var(--text-tertiary)', fontSize: '0.95rem' }}>
-            Don't have an account? <Link to="/register" style={{ color: 'var(--accent-primary)', fontWeight: '600' }}>Create an account</Link>
+            Belum punya akun? <Link to="/register" style={{ color: 'var(--accent-primary)', fontWeight: '600' }}>Daftar sekarang</Link>
           </p>
         </div>
       </div>
@@ -87,9 +87,9 @@ const Login = () => {
           <div style={{ width: '80px', height: '80px', borderRadius: '20px', background: 'var(--gradient-btn)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 32px auto', boxShadow: '0 0 40px rgba(0, 210, 255, 0.3)' }}>
             <FaFutbol size={40} color="#fff" />
           </div>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>Elevate Your Game.</h2>
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>Tingkatkan Permainan Anda.</h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: '1.8' }}>
-            Experience the most seamless futsal booking platform. Real-time availability, instant confirmations, and premium facilities.
+            Rasakan pengalaman memesan lapangan futsal terbaik. Ketersediaan real-time, konfirmasi instan, dan fasilitas premium.
           </p>
         </div>
       </div>

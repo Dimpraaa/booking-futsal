@@ -52,9 +52,9 @@ const AdminDashboard = () => {
       });
       setNewRoom({ name: '', capacity: 10, price_per_hour: 0 });
       fetchRooms();
-      alert('Arena added successfully!');
+      alert('Lapangan berhasil ditambahkan!');
     } catch (err) {
-      setError('Failed to create arena');
+      setError('Gagal membuat lapangan');
     }
   };
 
@@ -65,19 +65,19 @@ const AdminDashboard = () => {
       });
       fetchBookings();
     } catch (err) {
-      alert('Failed to update status');
+      alert('Gagal merubah status');
     }
   };
 
   const deleteRoom = async (id) => {
-    if(window.confirm('Are you sure you want to delete this arena?')) {
+    if(window.confirm('Apakah Anda yakin ingin menghapus lapangan ini?')) {
       try {
         await axios.delete(`http://localhost:5000/api/rooms/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         fetchRooms();
       } catch (err) {
-        alert('Failed to delete');
+        alert('Gagal menghapus');
       }
     }
   };
@@ -87,8 +87,8 @@ const AdminDashboard = () => {
       {/* Sidebar Navigation */}
       <aside className="sidebar">
         <div style={{ paddingBottom: '32px', borderBottom: '1px solid var(--border-light)' }}>
-          <p style={{ fontSize: '0.85rem', color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>Admin Workspace</p>
-          <h2 style={{ fontSize: '1.5rem' }}>Management</h2>
+          <p style={{ fontSize: '0.85rem', color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>Ruang Kerja Admin</p>
+          <h2 style={{ fontSize: '1.5rem' }}>Manajemen</h2>
         </div>
         
         <nav style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '24px' }}>
@@ -96,13 +96,13 @@ const AdminDashboard = () => {
             onClick={() => setActiveTab('bookings')}
             style={{ textAlign: 'left', padding: '12px 16px', background: activeTab === 'bookings' ? 'var(--bg-glass-hover)' : 'transparent', border: '1px solid', borderColor: activeTab === 'bookings' ? 'var(--border-light)' : 'transparent', borderRadius: 'var(--radius-md)', color: activeTab === 'bookings' ? 'var(--text-primary)' : 'var(--text-secondary)', cursor: 'pointer', transition: 'all 0.2s', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500' }}
           >
-            <FaInbox /> Incoming Bookings
+            <FaInbox /> Pesanan Masuk
           </button>
           <button 
             onClick={() => setActiveTab('rooms')}
             style={{ textAlign: 'left', padding: '12px 16px', background: activeTab === 'rooms' ? 'var(--bg-glass-hover)' : 'transparent', border: '1px solid', borderColor: activeTab === 'rooms' ? 'var(--border-light)' : 'transparent', borderRadius: 'var(--radius-md)', color: activeTab === 'rooms' ? 'var(--text-primary)' : 'var(--text-secondary)', cursor: 'pointer', transition: 'all 0.2s', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500' }}
           >
-            <FaPlus /> Manage Arenas
+            <FaPlus /> Kelola Lapangan
           </button>
         </nav>
       </aside>
@@ -112,20 +112,20 @@ const AdminDashboard = () => {
         {activeTab === 'bookings' && (
           <div className="animate-slide-up">
             <div style={{ marginBottom: '32px' }}>
-              <h1 style={{ fontSize: '2rem', marginBottom: '8px' }}>Bookings Overview</h1>
-              <p style={{ color: 'var(--text-tertiary)' }}>Monitor and validate customer booking requests.</p>
+              <h1 style={{ fontSize: '2rem', marginBottom: '8px' }}>Ringkasan Pesanan</h1>
+              <p style={{ color: 'var(--text-tertiary)' }}>Pantau dan validasi permintaan pesanan pelanggan.</p>
             </div>
             
             <div style={{ overflowX: 'auto', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-light)', background: 'var(--bg-surface)' }}>
               <table className="data-grid">
                 <thead>
                   <tr>
-                    <th>Customer</th>
-                    <th>Arena</th>
-                    <th>Schedule</th>
-                    <th>Total Revenue</th>
+                    <th>Pelanggan</th>
+                    <th>Lapangan</th>
+                    <th>Jadwal</th>
+                    <th>Total Tagihan</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -134,9 +134,9 @@ const AdminDashboard = () => {
                       <td style={{ fontWeight: '500' }}>{b.user?.name}</td>
                       <td>{b.room?.name}</td>
                       <td style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-                        {new Date(b.start_time).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' })}<br/>
-                        <span style={{ color: 'var(--text-tertiary)' }}>to</span><br/>
-                        {new Date(b.end_time).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' })}
+                        {new Date(b.start_time).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })}<br/>
+                        <span style={{ color: 'var(--text-tertiary)' }}>s/d</span><br/>
+                        {new Date(b.end_time).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })}
                       </td>
                       <td style={{ fontWeight: '600', color: 'var(--accent-primary)' }}>Rp {b.total_price.toLocaleString('id-ID')}</td>
                       <td>
@@ -156,14 +156,14 @@ const AdminDashboard = () => {
                           </div>
                         )}
                         {b.status === 'APPROVED' && (
-                          <button onClick={() => updateBookingStatus(b.id, 'COMPLETED')} className="btn" style={{ padding: '8px 16px', fontSize: '0.85rem' }}>Mark Completed</button>
+                          <button onClick={() => updateBookingStatus(b.id, 'COMPLETED')} className="btn" style={{ padding: '8px 16px', fontSize: '0.85rem' }}>Tandai Selesai</button>
                         )}
                       </td>
                     </tr>
                   ))}
                   {bookings.length === 0 && (
                     <tr>
-                      <td colSpan="6" style={{ textAlign: 'center', padding: '60px', color: 'var(--text-tertiary)' }}>No bookings found.</td>
+                      <td colSpan="6" style={{ textAlign: 'center', padding: '60px', color: 'var(--text-tertiary)' }}>Tidak ada pesanan.</td>
                     </tr>
                   )}
                 </tbody>
@@ -175,48 +175,48 @@ const AdminDashboard = () => {
         {activeTab === 'rooms' && (
           <div className="animate-slide-up">
             <div style={{ marginBottom: '32px' }}>
-              <h1 style={{ fontSize: '2rem', marginBottom: '8px' }}>Arena Management</h1>
-              <p style={{ color: 'var(--text-tertiary)' }}>Add new facilities or remove existing ones.</p>
+              <h1 style={{ fontSize: '2rem', marginBottom: '8px' }}>Manajemen Lapangan</h1>
+              <p style={{ color: 'var(--text-tertiary)' }}>Tambahkan fasilitas baru atau hapus yang sudah ada.</p>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px' }}>
               {/* Form Add Room */}
               <div className="glass-card">
-                <h3 style={{ marginBottom: '24px', fontSize: '1.4rem' }}>Add New Arena</h3>
+                <h3 style={{ marginBottom: '24px', fontSize: '1.4rem' }}>Tambah Lapangan Baru</h3>
                 {error && <p style={{ color: 'var(--danger-color)', marginBottom: '16px' }}>{error}</p>}
                 <form onSubmit={handleCreateRoom}>
                   <div className="form-group">
-                    <label>Arena Name</label>
-                    <input type="text" className="form-control" value={newRoom.name} onChange={e => setNewRoom({...newRoom, name: e.target.value})} required placeholder="e.g., VIP Court A" />
+                    <label>Nama Lapangan</label>
+                    <input type="text" className="form-control" value={newRoom.name} onChange={e => setNewRoom({...newRoom, name: e.target.value})} required placeholder="Masukkan nama lapangan" />
                   </div>
                   <div className="form-group">
-                    <label>Player Capacity</label>
+                    <label>Kapasitas Pemain</label>
                     <input type="number" className="form-control" value={newRoom.capacity} onChange={e => setNewRoom({...newRoom, capacity: e.target.value})} required />
                   </div>
                   <div className="form-group">
-                    <label>Price per Hour (Rp)</label>
-                    <input type="number" className="form-control" value={newRoom.price_per_hour} onChange={e => setNewRoom({...newRoom, price_per_hour: e.target.value})} required placeholder="150000" />
+                    <label>Harga per Jam (Rp)</label>
+                    <input type="number" className="form-control" value={newRoom.price_per_hour} onChange={e => setNewRoom({...newRoom, price_per_hour: e.target.value})} required placeholder="Masukkan harga" />
                   </div>
-                  <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '16px' }}><FaPlus /> Create Arena</button>
+                  <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '16px' }}><FaPlus /> Buat Lapangan</button>
                 </form>
               </div>
 
               {/* List Rooms */}
               <div>
-                <h3 style={{ marginBottom: '24px', fontSize: '1.4rem' }}>Existing Arenas</h3>
+                <h3 style={{ marginBottom: '24px', fontSize: '1.4rem' }}>Daftar Lapangan</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   {rooms.map(r => (
                     <div key={r.id} style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-md)', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <div>
                         <h4 style={{ fontSize: '1.1rem', marginBottom: '4px' }}>{r.name}</h4>
-                        <p style={{ color: 'var(--text-tertiary)', fontSize: '0.9rem' }}>Rp {r.price_per_hour.toLocaleString('id-ID')} / hour</p>
+                        <p style={{ color: 'var(--text-tertiary)', fontSize: '0.9rem' }}>Rp {r.price_per_hour.toLocaleString('id-ID')} / jam</p>
                       </div>
                       <button className="btn btn-danger" onClick={() => deleteRoom(r.id)} style={{ padding: '10px' }}>
                         <FaTrash />
                       </button>
                     </div>
                   ))}
-                  {rooms.length === 0 && <p style={{ color: 'var(--text-tertiary)' }}>No arenas registered yet.</p>}
+                  {rooms.length === 0 && <p style={{ color: 'var(--text-tertiary)' }}>Belum ada lapangan yang terdaftar.</p>}
                 </div>
               </div>
             </div>

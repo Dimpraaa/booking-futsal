@@ -15,7 +15,6 @@ const Navbar = () => {
     navigate('/login');
   };
 
-  // Sembunyikan navbar di halaman auth
   if (location.pathname === '/login' || location.pathname === '/register') return null;
 
   return (
@@ -31,9 +30,9 @@ const Navbar = () => {
           {token ? (
             <>
               {user?.role === 'ADMIN' && (
-                <Link to="/admin" className={`nav-item ${location.pathname === '/admin' ? 'active' : ''}`}>Dashboard</Link>
+                <Link to="/admin" className={`nav-item ${location.pathname === '/admin' ? 'active' : ''}`}>Dasbor</Link>
               )}
-              <Link to="/" className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}>Explore</Link>
+              <Link to="/" className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}>Cari Lapangan</Link>
               
               <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginLeft: '10px', paddingLeft: '20px', borderLeft: '1px solid var(--border-light)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-primary)', fontWeight: '500' }}>
@@ -43,14 +42,14 @@ const Navbar = () => {
                   {user?.name}
                 </div>
                 <button onClick={handleLogout} className="btn" style={{ padding: '8px 16px', fontSize: '0.85rem' }}>
-                  <FaSignOutAlt /> Logout
+                  <FaSignOutAlt /> Keluar
                 </button>
               </div>
             </>
           ) : (
             <>
-              <Link to="/login" className="nav-item">Sign In</Link>
-              <Link to="/register" className="btn btn-primary" style={{ padding: '10px 24px' }}>Get Started</Link>
+              <Link to="/login" className="nav-item">Masuk</Link>
+              <Link to="/register" className="btn btn-primary" style={{ padding: '10px 24px' }}>Daftar</Link>
             </>
           )}
         </div>
