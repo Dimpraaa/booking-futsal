@@ -80,9 +80,9 @@ const Register = () => {
           <div style={{ width: '80px', height: '80px', borderRadius: '20px', background: 'var(--gradient-btn)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 32px auto', boxShadow: '0 0 40px rgba(0, 210, 255, 0.3)' }}>
             <FaFutbol size={40} color="#fff" />
           </div>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>Manage with Ease.</h2>
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>Join the Action.</h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: '1.8' }}>
-            Register as an Admin to access the powerful dashboard. Manage arenas, approve bookings, and monitor your revenue effortlessly.
+            Create an account to book premium arenas instantly. Secure your spot, invite your team, and elevate your futsal experience.
           </p>
         </div>
       </div>
