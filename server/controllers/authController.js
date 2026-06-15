@@ -4,7 +4,7 @@ const { User } = require('../models');
 
 exports.register = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password } = req.body;
 
     // Check if user already exists
     const existingUser = await User.findOne({ where: { email } });
@@ -15,12 +15,12 @@ exports.register = async (req, res) => {
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create user
+    // Create user (role is always USER — admin accounts are created manually)
     const newUser = await User.create({
       name,
       email,
       password: hashedPassword,
-      role: role || 'USER',
+      role: 'USER',
     });
 
     res.status(201).json({ message: 'User registered successfully', userId: newUser.id });

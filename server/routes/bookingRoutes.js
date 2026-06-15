@@ -10,6 +10,7 @@ router.use(authMiddleware);
 // User routes
 router.post('/', bookingController.createBooking);
 router.get('/my-bookings', bookingController.getMyBookings);
+router.put('/:id/cancel', bookingController.cancelMyBooking);
 
 // Admin routes
 router.get('/', roleMiddleware('ADMIN'), bookingController.getAllBookings);

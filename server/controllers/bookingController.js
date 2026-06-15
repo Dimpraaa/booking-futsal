@@ -103,3 +103,22 @@ exports.updateBookingStatus = async (req, res) => {
     res.status(500).json({ message: 'Server error updating booking status' });
   }
 };
+
+// PUT Cancel my own booking (User — only if still PENDING)
+exports.cancelMyBooking = async (req, res) => {
+  try {
+    const booking = await Booking.findByPk(req.params.id);
+
+    if (!booking) return res.status(404).json({ message: 'Booking not found' });
+    if (booking.userId !== req.user.id) return res.status(403).json({ message: 'Not authorized' });
+    if (booking.status !== 'PENDING') {
+      return res.status(400).json({ message: 'Hanya booking dengan status PENDING yang bisa dibatalkan' });
+    }
+
+    await booking.update({ status: 'CANCELLED' });
+    res.json({ message: 'Booking berhasil dibatalkan', booking });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error cancelling booking' });
+  }
+};

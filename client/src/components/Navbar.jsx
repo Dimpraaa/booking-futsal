@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { FaFutbol, FaSignOutAlt, FaUser } from 'react-icons/fa';
+import { FaFutbol, FaSignOutAlt, FaUser, FaClipboardList } from 'react-icons/fa';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -33,6 +33,9 @@ const Navbar = () => {
                 <Link to="/admin" className={`nav-item ${location.pathname === '/admin' ? 'active' : ''}`}>Dashboard</Link>
               )}
               <Link to="/" className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}>Pilih Lapangan</Link>
+              <Link to="/my-bookings" className={`nav-item ${location.pathname === '/my-bookings' ? 'active' : ''}`}>
+                <FaClipboardList size={14} style={{ marginRight: '4px' }} /> Booking Saya
+              </Link>
               
               <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginLeft: '10px', paddingLeft: '20px', borderLeft: '1px solid var(--border-light)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-primary)', fontWeight: '500' }}>
