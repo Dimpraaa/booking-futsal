@@ -30,9 +30,9 @@ const Navbar = () => {
           {token ? (
             <>
               {user?.role === 'ADMIN' && (
-                <Link to="/admin" className={`nav-item ${location.pathname === '/admin' ? 'active' : ''}`}>Dasbor</Link>
+                <Link to="/admin" className={`nav-item ${location.pathname === '/admin' ? 'active' : ''}`}>Dashboard</Link>
               )}
-              <Link to="/" className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}>Cari Lapangan</Link>
+              <Link to="/" className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}>Pilih Lapangan</Link>
               
               <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginLeft: '10px', paddingLeft: '20px', borderLeft: '1px solid var(--border-light)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-primary)', fontWeight: '500' }}>

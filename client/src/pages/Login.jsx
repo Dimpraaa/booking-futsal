@@ -21,7 +21,7 @@ const Login = () => {
       if (res.data.user.role === 'ADMIN') navigate('/admin');
       else navigate('/');
     } catch (err) {
-      setError(err.response?.data?.message || 'Gagal masuk');
+      setError(err.response?.data?.message || 'Email atau password salah nih.');
     } finally {
       setIsLoading(false);
     }
@@ -35,8 +35,8 @@ const Login = () => {
             <FaFutbol className="text-gradient" /> Arena<span className="text-gradient">Pro</span>
           </Link>
           
-          <h1 style={{ fontSize: '2.5rem', marginBottom: '8px' }}>Selamat datang kembali.</h1>
-          <p style={{ color: 'var(--text-tertiary)', marginBottom: '32px' }}>Masuk untuk mengelola pesanan dan mencari lapangan.</p>
+          <h1 style={{ fontSize: '2.5rem', marginBottom: '8px' }}>Selamat datang lagi!</h1>
+          <p style={{ color: 'var(--text-tertiary)', marginBottom: '32px' }}>Masuk ke akunmu buat cek jadwal atau booking lapangan baru.</p>
           
           {error && (
             <div style={{ background: 'rgba(244, 63, 94, 0.1)', color: 'var(--danger-color)', padding: '12px 16px', borderRadius: 'var(--radius-sm)', marginBottom: '24px', fontSize: '0.9rem', border: '1px solid rgba(244, 63, 94, 0.2)' }}>
@@ -46,20 +46,20 @@ const Login = () => {
 
           <form onSubmit={handleLogin}>
             <div className="form-group">
-              <label>Alamat Email</label>
+              <label>Email</label>
               <input 
                 type="email" 
                 className="form-control" 
                 value={email} 
                 onChange={(e) => setEmail(e.target.value)} 
                 required 
-                placeholder="Masukkan alamat email"
+                placeholder="Ketik email kamu di sini"
               />
             </div>
             <div className="form-group">
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <label>Kata Sandi</label>
-                <a href="#" style={{ fontSize: '0.85rem', color: 'var(--text-tertiary)' }}>Lupa kata sandi?</a>
+                <label>Password</label>
+                <a href="#" style={{ fontSize: '0.85rem', color: 'var(--text-tertiary)' }}>Lupa password?</a>
               </div>
               <input 
                 type="password" 
@@ -72,12 +72,12 @@ const Login = () => {
             </div>
             
             <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '16px', padding: '14px' }} disabled={isLoading}>
-              {isLoading ? 'Sedang memproses...' : 'Masuk'} <FaArrowRight style={{ marginLeft: '4px' }} />
+              {isLoading ? 'Lagi proses...' : 'Masuk'} <FaArrowRight style={{ marginLeft: '4px' }} />
             </button>
           </form>
           
           <p style={{ textAlign: 'center', marginTop: '32px', color: 'var(--text-tertiary)', fontSize: '0.95rem' }}>
-            Belum punya akun? <Link to="/register" style={{ color: 'var(--accent-primary)', fontWeight: '600' }}>Daftar sekarang</Link>
+            Belum punya akun? <Link to="/register" style={{ color: 'var(--accent-primary)', fontWeight: '600' }}>Daftar di sini</Link>
           </p>
         </div>
       </div>
@@ -87,9 +87,9 @@ const Login = () => {
           <div style={{ width: '80px', height: '80px', borderRadius: '20px', background: 'var(--gradient-btn)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 32px auto', boxShadow: '0 0 40px rgba(0, 210, 255, 0.3)' }}>
             <FaFutbol size={40} color="#fff" />
           </div>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>Tingkatkan Permainan Anda.</h2>
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>Fokus Mainnya, Biar Kami Urus Bookingnya.</h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: '1.8' }}>
-            Rasakan pengalaman memesan lapangan futsal terbaik. Ketersediaan real-time, konfirmasi instan, dan fasilitas premium.
+            Cek jadwal kosong secara real-time dan langsung booking tanpa perlu ngantri. Bikin jadwal futsal bareng teman jadi makin gampang!
           </p>
         </div>
       </div>

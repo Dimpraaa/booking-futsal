@@ -52,9 +52,9 @@ const AdminDashboard = () => {
       });
       setNewRoom({ name: '', capacity: 10, price_per_hour: 0 });
       fetchRooms();
-      alert('Lapangan berhasil ditambahkan!');
+      alert('Lapangan berhasil disimpan!');
     } catch (err) {
-      setError('Gagal membuat lapangan');
+      setError('Gagal nyimpen lapangan, cek lagi datanya ya.');
     }
   };
 
@@ -65,19 +65,19 @@ const AdminDashboard = () => {
       });
       fetchBookings();
     } catch (err) {
-      alert('Gagal merubah status');
+      alert('Gagal ngerubah status pesanan.');
     }
   };
 
   const deleteRoom = async (id) => {
-    if(window.confirm('Apakah Anda yakin ingin menghapus lapangan ini?')) {
+    if(window.confirm('Yakin nih mau ngehapus lapangan ini?')) {
       try {
         await axios.delete(`http://localhost:5000/api/rooms/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         fetchRooms();
       } catch (err) {
-        alert('Gagal menghapus');
+        alert('Gagal hapus lapangan.');
       }
     }
   };
@@ -87,8 +87,8 @@ const AdminDashboard = () => {
       {/* Sidebar Navigation */}
       <aside className="sidebar">
         <div style={{ paddingBottom: '32px', borderBottom: '1px solid var(--border-light)' }}>
-          <p style={{ fontSize: '0.85rem', color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>Ruang Kerja Admin</p>
-          <h2 style={{ fontSize: '1.5rem' }}>Manajemen</h2>
+          <p style={{ fontSize: '0.85rem', color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>Halaman Admin</p>
+          <h2 style={{ fontSize: '1.5rem' }}>Kelola Sistem</h2>
         </div>
         
         <nav style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '24px' }}>
@@ -96,7 +96,7 @@ const AdminDashboard = () => {
             onClick={() => setActiveTab('bookings')}
             style={{ textAlign: 'left', padding: '12px 16px', background: activeTab === 'bookings' ? 'var(--bg-glass-hover)' : 'transparent', border: '1px solid', borderColor: activeTab === 'bookings' ? 'var(--border-light)' : 'transparent', borderRadius: 'var(--radius-md)', color: activeTab === 'bookings' ? 'var(--text-primary)' : 'var(--text-secondary)', cursor: 'pointer', transition: 'all 0.2s', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500' }}
           >
-            <FaInbox /> Pesanan Masuk
+            <FaInbox /> Booking Masuk
           </button>
           <button 
             onClick={() => setActiveTab('rooms')}
@@ -112,18 +112,18 @@ const AdminDashboard = () => {
         {activeTab === 'bookings' && (
           <div className="animate-slide-up">
             <div style={{ marginBottom: '32px' }}>
-              <h1 style={{ fontSize: '2rem', marginBottom: '8px' }}>Ringkasan Pesanan</h1>
-              <p style={{ color: 'var(--text-tertiary)' }}>Pantau dan validasi permintaan pesanan pelanggan.</p>
+              <h1 style={{ fontSize: '2rem', marginBottom: '8px' }}>Daftar Booking Masuk</h1>
+              <p style={{ color: 'var(--text-tertiary)' }}>Cek dan konfirmasi pesanan yang masuk dari pelanggan.</p>
             </div>
             
             <div style={{ overflowX: 'auto', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-light)', background: 'var(--bg-surface)' }}>
               <table className="data-grid">
                 <thead>
                   <tr>
-                    <th>Pelanggan</th>
+                    <th>Nama Pemesan</th>
                     <th>Lapangan</th>
-                    <th>Jadwal</th>
-                    <th>Total Tagihan</th>
+                    <th>Jadwal Main</th>
+                    <th>Total Harga</th>
                     <th>Status</th>
                     <th>Aksi</th>
                   </tr>
@@ -156,14 +156,14 @@ const AdminDashboard = () => {
                           </div>
                         )}
                         {b.status === 'APPROVED' && (
-                          <button onClick={() => updateBookingStatus(b.id, 'COMPLETED')} className="btn" style={{ padding: '8px 16px', fontSize: '0.85rem' }}>Tandai Selesai</button>
+                          <button onClick={() => updateBookingStatus(b.id, 'COMPLETED')} className="btn" style={{ padding: '8px 16px', fontSize: '0.85rem' }}>Selesaikan</button>
                         )}
                       </td>
                     </tr>
                   ))}
                   {bookings.length === 0 && (
                     <tr>
-                      <td colSpan="6" style={{ textAlign: 'center', padding: '60px', color: 'var(--text-tertiary)' }}>Tidak ada pesanan.</td>
+                      <td colSpan="6" style={{ textAlign: 'center', padding: '60px', color: 'var(--text-tertiary)' }}>Belum ada pesanan yang masuk nih.</td>
                     </tr>
                   )}
                 </tbody>
@@ -175,35 +175,35 @@ const AdminDashboard = () => {
         {activeTab === 'rooms' && (
           <div className="animate-slide-up">
             <div style={{ marginBottom: '32px' }}>
-              <h1 style={{ fontSize: '2rem', marginBottom: '8px' }}>Manajemen Lapangan</h1>
-              <p style={{ color: 'var(--text-tertiary)' }}>Tambahkan fasilitas baru atau hapus yang sudah ada.</p>
+              <h1 style={{ fontSize: '2rem', marginBottom: '8px' }}>Kelola Daftar Lapangan</h1>
+              <p style={{ color: 'var(--text-tertiary)' }}>Tambah lapangan baru atau hapus yang udah gak dipakai.</p>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px' }}>
               {/* Form Add Room */}
               <div className="glass-card">
-                <h3 style={{ marginBottom: '24px', fontSize: '1.4rem' }}>Tambah Lapangan Baru</h3>
+                <h3 style={{ marginBottom: '24px', fontSize: '1.4rem' }}>Tambah Lapangan</h3>
                 {error && <p style={{ color: 'var(--danger-color)', marginBottom: '16px' }}>{error}</p>}
                 <form onSubmit={handleCreateRoom}>
                   <div className="form-group">
                     <label>Nama Lapangan</label>
-                    <input type="text" className="form-control" value={newRoom.name} onChange={e => setNewRoom({...newRoom, name: e.target.value})} required placeholder="Masukkan nama lapangan" />
+                    <input type="text" className="form-control" value={newRoom.name} onChange={e => setNewRoom({...newRoom, name: e.target.value})} required placeholder="Contoh: Lapangan Sintetis A" />
                   </div>
                   <div className="form-group">
-                    <label>Kapasitas Pemain</label>
+                    <label>Kapasitas (Orang)</label>
                     <input type="number" className="form-control" value={newRoom.capacity} onChange={e => setNewRoom({...newRoom, capacity: e.target.value})} required />
                   </div>
                   <div className="form-group">
-                    <label>Harga per Jam (Rp)</label>
-                    <input type="number" className="form-control" value={newRoom.price_per_hour} onChange={e => setNewRoom({...newRoom, price_per_hour: e.target.value})} required placeholder="Masukkan harga" />
+                    <label>Harga Sewa / Jam</label>
+                    <input type="number" className="form-control" value={newRoom.price_per_hour} onChange={e => setNewRoom({...newRoom, price_per_hour: e.target.value})} required placeholder="Contoh: 150000" />
                   </div>
-                  <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '16px' }}><FaPlus /> Buat Lapangan</button>
+                  <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '16px' }}><FaPlus /> Simpan Lapangan</button>
                 </form>
               </div>
 
               {/* List Rooms */}
               <div>
-                <h3 style={{ marginBottom: '24px', fontSize: '1.4rem' }}>Daftar Lapangan</h3>
+                <h3 style={{ marginBottom: '24px', fontSize: '1.4rem' }}>Lapangan Tersedia</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   {rooms.map(r => (
                     <div key={r.id} style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-md)', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -216,7 +216,7 @@ const AdminDashboard = () => {
                       </button>
                     </div>
                   ))}
-                  {rooms.length === 0 && <p style={{ color: 'var(--text-tertiary)' }}>Belum ada lapangan yang terdaftar.</p>}
+                  {rooms.length === 0 && <p style={{ color: 'var(--text-tertiary)' }}>Belum ada lapangan yang didaftarin.</p>}
                 </div>
               </div>
             </div>

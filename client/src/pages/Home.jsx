@@ -23,7 +23,7 @@ const Home = () => {
       const res = await axios.get('http://localhost:5000/api/rooms');
       setRooms(res.data);
     } catch (error) {
-      console.error('Gagal mengambil data lapangan', error);
+      console.error('Gagal memuat data lapangan', error);
     }
   };
 
@@ -42,10 +42,10 @@ const Home = () => {
         { roomId: selectedRoom.id, start_time: startTime, end_time: endTime },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setBookingSuccess('Permintaan pesanan terkirim! Menunggu persetujuan Admin.');
-      setTimeout(() => setSelectedRoom(null), 2000);
+      setBookingSuccess('Booking berhasil dikirim! Tinggal tunggu konfirmasi Admin ya.');
+      setTimeout(() => setSelectedRoom(null), 2500);
     } catch (err) {
-      setBookingError(err.response?.data?.message || 'Pesanan gagal diproses');
+      setBookingError(err.response?.data?.message || 'Waduh, bookingnya gagal diproses.');
     }
   };
 
@@ -55,14 +55,14 @@ const Home = () => {
       <div className="container" style={{ textAlign: 'center', marginBottom: '80px' }}>
         <div className="animate-slide-up">
           <span style={{ display: 'inline-block', padding: '6px 16px', background: 'rgba(0, 210, 255, 0.1)', color: 'var(--accent-primary)', borderRadius: 'var(--radius-full)', fontSize: '0.85rem', fontWeight: '600', marginBottom: '24px', border: '1px solid rgba(0, 210, 255, 0.2)' }}>
-            Platform Pemesanan Futsal Premium
+            Booking Lapangan Futsal Tanpa Ribet
           </span>
           <h1 style={{ fontSize: '4rem', fontWeight: '800', letterSpacing: '-1px', marginBottom: '24px', lineHeight: '1.1' }}>
-            Pesan Lapangan Anda.<br/>
-            <span className="text-gradient">Kuasai Permainan.</span>
+            Pilih Lapanganmu.<br/>
+            <span className="text-gradient">Bantai Lawanmu.</span>
           </h1>
           <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto 40px auto', lineHeight: '1.6' }}>
-            Temukan dan pesan lapangan futsal terbaik di kota. Ketersediaan real-time, konfirmasi instan, dan fasilitas kelas dunia.
+            Cari lapangan kosong, pilih jadwal yang pas, dan langsung booking. Semuanya bisa dilakukan hanya dari layar HP kamu.
           </p>
         </div>
       </div>
@@ -71,8 +71,8 @@ const Home = () => {
       <div className="container animate-slide-up stagger-2">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '32px' }}>
           <div>
-            <h2 style={{ fontSize: '2rem' }}>Daftar Lapangan</h2>
-            <p style={{ color: 'var(--text-tertiary)' }}>Pilih lapangan yang sesuai dengan kebutuhan tim Anda.</p>
+            <h2 style={{ fontSize: '2rem' }}>Pilihan Lapangan</h2>
+            <p style={{ color: 'var(--text-tertiary)' }}>Temukan arena yang ukurannya paling pas buat gaya main tim kamu.</p>
           </div>
         </div>
 
@@ -90,22 +90,22 @@ const Home = () => {
                 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '24px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
-                    <FaMapMarkerAlt color="var(--accent-primary)" /> Lapangan Standar FIFA
+                    <FaMapMarkerAlt color="var(--accent-primary)" /> Fasilitas Lengkap & Nyaman
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
-                    <FaUsers color="var(--accent-primary)" /> Kapasitas: {room.capacity} Pemain
+                    <FaUsers color="var(--accent-primary)" /> Maks. {room.capacity} Pemain
                   </div>
                 </div>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '20px', borderTop: '1px solid var(--border-light)' }}>
                   <div>
-                    <span style={{ fontSize: '0.85rem', color: 'var(--text-tertiary)' }}>Harga per jam</span>
+                    <span style={{ fontSize: '0.85rem', color: 'var(--text-tertiary)' }}>Harga Sewa</span>
                     <div style={{ fontSize: '1.3rem', fontWeight: '700', color: 'var(--text-primary)' }}>
-                      Rp {room.price_per_hour.toLocaleString('id-ID')}
+                      Rp {room.price_per_hour.toLocaleString('id-ID')} <span style={{fontSize: '0.8rem', color: 'var(--text-tertiary)', fontWeight: 'normal'}}>/jam</span>
                     </div>
                   </div>
                   <button className="btn btn-primary" onClick={() => setSelectedRoom(room)} style={{ padding: '10px 20px' }}>
-                    Pesan Sekarang
+                    Booking
                   </button>
                 </div>
               </div>
@@ -114,8 +114,8 @@ const Home = () => {
           {rooms.length === 0 && (
             <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '60px', background: 'var(--bg-surface)', borderRadius: 'var(--radius-lg)', border: '1px dashed var(--border-light)' }}>
               <FaFutbol size={40} color="var(--text-tertiary)" style={{ marginBottom: '16px' }} />
-              <h3 style={{ color: 'var(--text-secondary)' }}>Belum ada lapangan yang tersedia.</h3>
-              <p style={{ color: 'var(--text-tertiary)' }}>Silakan kembali lagi nanti atau hubungi administrator.</p>
+              <h3 style={{ color: 'var(--text-secondary)' }}>Belum ada lapangan yang terdaftar nih.</h3>
+              <p style={{ color: 'var(--text-tertiary)' }}>Silakan mampir lagi nanti atau hubungi Admin ya.</p>
             </div>
           )}
         </div>
@@ -131,8 +131,8 @@ const Home = () => {
           <div className="glass-card animate-slide-up" style={{ width: '100%', maxWidth: '480px', padding: '40px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
               <div>
-                <h2 style={{ fontSize: '1.8rem', marginBottom: '8px' }}>Pesan {selectedRoom.name}</h2>
-                <p style={{ color: 'var(--text-tertiary)', fontSize: '0.95rem' }}>Tentukan jadwal Anda dan mainkan.</p>
+                <h2 style={{ fontSize: '1.8rem', marginBottom: '8px' }}>Booking {selectedRoom.name}</h2>
+                <p style={{ color: 'var(--text-tertiary)', fontSize: '0.95rem' }}>Pilih jam main yang kamu mau.</p>
               </div>
               <button onClick={() => setSelectedRoom(null)} style={{ background: 'transparent', border: 'none', color: 'var(--text-tertiary)', cursor: 'pointer', padding: '8px' }}>
                 <FaTimes size={20} />
@@ -144,11 +144,11 @@ const Home = () => {
 
             <form onSubmit={handleBooking}>
               <div className="form-group">
-                <label><FaClock style={{ marginRight: '6px' }} /> Waktu Mulai</label>
+                <label><FaClock style={{ marginRight: '6px' }} /> Jam Mulai</label>
                 <input type="datetime-local" className="form-control" value={startTime} onChange={(e) => setStartTime(e.target.value)} required />
               </div>
               <div className="form-group" style={{ marginBottom: '32px' }}>
-                <label><FaClock style={{ marginRight: '6px' }} /> Waktu Selesai</label>
+                <label><FaClock style={{ marginRight: '6px' }} /> Jam Selesai</label>
                 <input type="datetime-local" className="form-control" value={endTime} onChange={(e) => setEndTime(e.target.value)} required />
               </div>
               
@@ -159,7 +159,7 @@ const Home = () => {
 
               <div style={{ display: 'flex', gap: '16px' }}>
                 <button type="button" className="btn" onClick={() => setSelectedRoom(null)} style={{ flex: 1 }}>Batal</button>
-                <button type="submit" className="btn btn-primary" style={{ flex: 2 }}>Konfirmasi Pesanan</button>
+                <button type="submit" className="btn btn-primary" style={{ flex: 2 }}>Konfirmasi Booking</button>
               </div>
             </form>
           </div>

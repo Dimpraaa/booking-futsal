@@ -16,10 +16,10 @@ const Register = () => {
     setIsLoading(true);
     try {
       await axios.post('http://localhost:5000/api/auth/register', { name, email, password });
-      alert('Pendaftaran berhasil! Anda sekarang bisa masuk.');
+      alert('Berhasil daftar! Sekarang kamu bisa masuk pakai akun barumu.');
       navigate('/login');
     } catch (err) {
-      setError(err.response?.data?.message || 'Pendaftaran gagal');
+      setError(err.response?.data?.message || 'Gagal mendaftar, coba lagi ya.');
     } finally {
       setIsLoading(false);
     }
@@ -33,8 +33,8 @@ const Register = () => {
             <FaFutbol className="text-gradient" /> Arena<span className="text-gradient">Pro</span>
           </Link>
           
-          <h1 style={{ fontSize: '2.2rem', marginBottom: '8px' }}>Buat akun baru</h1>
-          <p style={{ color: 'var(--text-tertiary)', marginBottom: '24px' }}>Bergabunglah untuk mulai memesan lapangan futsal premium.</p>
+          <h1 style={{ fontSize: '2.2rem', marginBottom: '8px' }}>Bikin Akun Baru</h1>
+          <p style={{ color: 'var(--text-tertiary)', marginBottom: '24px' }}>Daftar sekarang buat mulai booking lapangan futsal favoritmu.</p>
           
           {error && (
             <div style={{ background: 'rgba(244, 63, 94, 0.1)', color: 'var(--danger-color)', padding: '12px 16px', borderRadius: 'var(--radius-sm)', marginBottom: '24px', fontSize: '0.9rem', border: '1px solid rgba(244, 63, 94, 0.2)' }}>
@@ -45,19 +45,19 @@ const Register = () => {
           <form onSubmit={handleRegister}>
             <div className="form-group">
               <label>Nama Lengkap</label>
-              <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)} required placeholder="Masukkan nama lengkap" />
+              <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)} required placeholder="Ketik nama lengkapmu" />
             </div>
             <div className="form-group">
-              <label>Alamat Email</label>
-              <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="Masukkan alamat email" />
+              <label>Email</label>
+              <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="Ketik alamat email aktifmu" />
             </div>
             <div className="form-group">
-              <label>Kata Sandi</label>
-              <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="Buat kata sandi yang kuat" />
+              <label>Password</label>
+              <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="Minimal 8 karakter" />
             </div>
             
             <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '10px', padding: '14px' }} disabled={isLoading}>
-              {isLoading ? 'Mendaftarkan...' : 'Daftar'} <FaArrowRight style={{ marginLeft: '4px' }} />
+              {isLoading ? 'Mendaftarkan...' : 'Daftar Sekarang'} <FaArrowRight style={{ marginLeft: '4px' }} />
             </button>
           </form>
           
@@ -72,9 +72,9 @@ const Register = () => {
           <div style={{ width: '80px', height: '80px', borderRadius: '20px', background: 'var(--gradient-btn)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 32px auto', boxShadow: '0 0 40px rgba(0, 210, 255, 0.3)' }}>
             <FaFutbol size={40} color="#fff" />
           </div>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>Bergabung Sekarang.</h2>
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>Main Tanpa Ribet.</h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: '1.8' }}>
-            Buat akun untuk memesan lapangan premium secara instan. Amankan jadwal, undang tim Anda, dan tingkatkan pengalaman bermain futsal Anda.
+            Tinggal klik, lapangan langsung di-booking. Gak perlu lagi repot nunggu balasan chat admin lama cuma buat nanya jadwal kosong.
           </p>
         </div>
       </div>
