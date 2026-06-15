@@ -55,14 +55,14 @@ const Home = () => {
       <div className="container" style={{ textAlign: 'center', marginBottom: '80px' }}>
         <div className="animate-slide-up">
           <span style={{ display: 'inline-block', padding: '6px 16px', background: 'rgba(0, 210, 255, 0.1)', color: 'var(--accent-primary)', borderRadius: 'var(--radius-full)', fontSize: '0.85rem', fontWeight: '600', marginBottom: '24px', border: '1px solid rgba(0, 210, 255, 0.2)' }}>
-            Booking Lapangan Futsal Tanpa Ribet
+            Aplikasi Booking Lapangan #1
           </span>
           <h1 style={{ fontSize: '4rem', fontWeight: '800', letterSpacing: '-1px', marginBottom: '24px', lineHeight: '1.1' }}>
-            Pilih Lapanganmu.<br/>
-            <span className="text-gradient">Bantai Lawanmu.</span>
+            Main Futsal<br/>
+            <span className="text-gradient">Gak Pake Ribet.</span>
           </h1>
           <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto 40px auto', lineHeight: '1.6' }}>
-            Cari lapangan kosong, pilih jadwal yang pas, dan langsung booking. Semuanya bisa dilakukan hanya dari layar HP kamu.
+            Gak perlu lagi telepon atau datang ke venue cuma buat nanya jadwal kosong. Booking lapangan, atur jadwal main bareng tim, dan amankan slotnya—semuanya langsung dari HP.
           </p>
         </div>
       </div>
