@@ -61,9 +61,6 @@ const Home = () => {
             Main Futsal<br/>
             <span className="text-gradient">Gak Pake Ribet.</span>
           </h1>
-          <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto 40px auto', lineHeight: '1.6' }}>
-            Gak perlu lagi telepon atau datang ke venue cuma buat nanya jadwal kosong. Booking lapangan, atur jadwal main bareng tim, dan amankan slotnya—semuanya langsung dari HP.
-          </p>
         </div>
       </div>
 
